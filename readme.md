@@ -1,5 +1,8 @@
 ## About Flyhjælp task
 
+Demo:
+![Demo](https://github.com/TanvirAlam/Flyhjaelp/tree/master/public/img/demo.gif "Demo")
+
 1.  Install a fresh version of Laravel
 2.  Seed the database with some options(id, key, value, created_at, updated_at). The option modal will be a modal to retrieve options for the website.
 3.  Make some API routes to retrieve, update and delete options.
