@@ -2,7 +2,10 @@
     <div>
         <table>
             <tbody>
+            <transition name="fade">
                 <table-row></table-row>
+            </transition>
+                
             </tbody>
         </table>
     </div>
@@ -16,3 +19,13 @@ import TableRow from './TableRow'
         }
     }
 </script>
+
+<style>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.25s ease-out;
+}
+
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+</style>
