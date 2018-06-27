@@ -1,9 +1,9 @@
 <?php
 
-Route::group(['middleware' => 'auth:api'], function () {
-    Route::get('options', 'Api\OptionController@index');
-    Route::get('options/{option}', 'Api\OptionController@show');
-    Route::post('options', 'Api\OptionController@store');
-    Route::put('options/{option}', 'Api\OptionController@update');
-    Route::delete('options/{option}', 'Api\OptionController@delete');
-});
+
+Route::get('options', 'Api\OptionsController@index');
+Route::get('options/{option}', 'Api\OptionsController@show');
+Route::post('options', 'Api\OptionsController@store');
+Route::put('options/{option}', 'Api\OptionsController@update');
+Route::delete('options/{option}', 'Api\OptionsController@delete');
+

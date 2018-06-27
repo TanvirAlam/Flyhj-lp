@@ -3,7 +3,7 @@ import "bulma/css/bulma.css";
 
 window.Vue = require("vue");
 
-Vue.component("welcome-view", require("./page/Welcome.vue"));
+Vue.component("main-table", require("./components/MainTable.vue"));
 
 const app = new Vue({
   el: "#app"

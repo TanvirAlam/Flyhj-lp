@@ -16,7 +16,7 @@ class OptionsController extends Controller
      */
     public function index()
     {
-        return Option::all();
+        return response()->json(Option::all());
     }
 
     /**
