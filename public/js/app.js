@@ -48016,11 +48016,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            optionData: []
+            optionData: [],
+            editing: false,
+            key: 0,
+            value: '',
+            editId: ''
         };
     },
     created: function created() {
@@ -48043,9 +48075,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 console.log(error.response.data);
             }).then(function (response) {
                 _this2.optionData.splice(index, 1);
-
-                //this.$emit("deleted") 
             });
+        },
+        editOption: function editOption(index, id) {
+            this.editing = true;
+            this.editId = id;
+        },
+        updateOption: function updateOption() {
+            axios.patch("/api/options/" + this.editId, {
+                key: this.key,
+                value: this.value
+            }).catch(function (error) {
+                console.log(error.response.data, "danger");
+            });
+
+            this.editing = false;
+            window.location.reload(true);
         }
     }
 });
@@ -48064,25 +48109,124 @@ var render = function() {
       return _c("tr", { key: option.id }, [
         _c("td", { domProps: { textContent: _vm._s(option.id) } }),
         _vm._v(" "),
-        _c("td", { domProps: { textContent: _vm._s(option.key) } }),
-        _vm._v(" "),
-        _c("td", { domProps: { textContent: _vm._s(option.value) } }),
+        _c("td", [
+          _vm.editing && _vm.editId == option.id
+            ? _c("div", [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.key,
+                      expression: "key"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.key },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.key = $event.target.value
+                    }
+                  }
+                })
+              ])
+            : _c("div", { domProps: { innerHTML: _vm._s(option.key) } }, [
+                _vm._v(
+                  "\n                " + _vm._s(option.key) + "\n            "
+                )
+              ])
+        ]),
         _vm._v(" "),
         _c("td", [
-          _vm._m(0, true),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "button is-small",
-              on: {
-                click: function($event) {
-                  _vm.deleteOption(index, option.id)
-                }
-              }
-            },
-            [_vm._m(1, true)]
-          )
+          _vm.editing && _vm.editId == option.id
+            ? _c("div", [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.value,
+                      expression: "value"
+                    }
+                  ],
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.value },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.value = $event.target.value
+                    }
+                  }
+                })
+              ])
+            : _c("div", { domProps: { innerHTML: _vm._s(option.value) } }, [
+                _vm._v(
+                  "\n                " + _vm._s(option.value) + "\n            "
+                )
+              ])
+        ]),
+        _vm._v(" "),
+        _c("td", [
+          _vm.editing && _vm.editId == option.id
+            ? _c("div", [
+                _c(
+                  "button",
+                  {
+                    staticClass: "button is-small",
+                    on: {
+                      click: function($event) {
+                        _vm.updateOption()
+                      }
+                    }
+                  },
+                  [_vm._m(0, true)]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "button is-small",
+                    on: {
+                      click: function($event) {
+                        _vm.editing = false
+                      }
+                    }
+                  },
+                  [_vm._m(1, true)]
+                )
+              ])
+            : _c("div", [
+                _c(
+                  "button",
+                  {
+                    staticClass: "button is-small",
+                    on: {
+                      click: function($event) {
+                        _vm.editOption(index, option.id)
+                      }
+                    }
+                  },
+                  [_vm._m(2, true)]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass: "button is-small",
+                    on: {
+                      click: function($event) {
+                        _vm.deleteOption(index, option.id)
+                      }
+                    }
+                  },
+                  [_vm._m(3, true)]
+                )
+              ])
         ])
       ])
     })
@@ -48093,10 +48237,24 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("button", { staticClass: "button is-small" }, [
-      _c("span", { staticClass: "icon is-small" }, [
-        _c("i", { staticClass: "fas fa-pencil-alt" })
-      ])
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-save" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-ban" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-pencil-alt" })
     ])
   },
   function() {
